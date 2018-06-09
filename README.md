@@ -19,7 +19,7 @@ Most of the game mechanics are finished, it is only the shop and progression sys
 ![](/demo/game.png)
 
 ### Controls
-WASD -          Control ship movement
-Left Click -    Fire Weapons
-E -             Auto Fire (So holding down left click is not as strenous)
-Right Click -   Use ability (This teleports you to where the mouse is (uses energy))
+#### WASD - Control ship movement
+#### Left Click - Fire Weapons
+#### E - Auto Fire (So holding down left click is not as strenous)
+#### Right Click - Use ability (This teleports you to where the mouse is (uses energy))
