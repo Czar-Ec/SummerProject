@@ -23,8 +23,6 @@ void Game::init()
 	//initialise window
 	window = nullptr;
 
-	playMusic = true;
-
 	//initialise SDL
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
 	{
@@ -87,28 +85,6 @@ void Game::init()
 				std::cout << TTF_GetError();
 			}
 
-			//game music
-			if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
-			{
-				std::cout << Mix_GetError() << std::endl;
-			}
-
-			//background music
-			Mix_Music *backgroundMusic = Mix_LoadMUS("res\\music\\proxy.mp3");
-
-			if (!Mix_PlayingMusic() && playMusic)
-			{
-				Mix_PlayMusic(backgroundMusic, -1);
-			}
-			else if (Mix_PausedMusic())
-			{
-				Mix_ResumeMusic();
-			}
-			else
-			{
-				Mix_PauseMusic();
-			}
-
 			//sfx
 			//Mix_Chunk *shootBullet = Mix_LoadMUS();
 
@@ -164,10 +140,6 @@ void Game::init()
 			int xPadding = config.getWinWidth() / 40;
 
 			shipyard = Button(config.getWinWidth(), config.getWinHeight(), xPadding, "SHIPYARD", 2);
-			offenseUpgrades = Button(config.getWinWidth(), config.getWinHeight(), xPadding, "OFFENSE", 3);
-			defenseUpgrades = Button(config.getWinWidth(), config.getWinHeight(), xPadding, "DEFENSE", 4);
-			auxiliaryUpgrades = Button(config.getWinWidth(), config.getWinHeight(), xPadding, "AUXILIARY", 5);
-			specialUpgrades = Button(config.getWinWidth(), config.getWinHeight(), xPadding, "SPECIAL", 6);
 
 			//inner upgrade menu
 			xPadding += (config.getWinWidth() / 10) + (config.getWinWidth() / 40);
@@ -218,6 +190,16 @@ void Game::init()
 			else
 			{
 				fullscreen = Button(config.getWinWidth(), config.getWinHeight(), "FULLSCREEN [ON]", 1);
+			}
+
+			//music option
+			if (config.getMusicPlay())
+			{
+				musicOpt = Button(config.getWinWidth(), config.getWinHeight(), "MUSIC [ON]", 2);
+			}
+			else
+			{
+				musicOpt = Button(config.getWinWidth(), config.getWinHeight(), "MUSIC [OFF]", 2);
 			}
 
 			//window sizes
@@ -433,7 +415,8 @@ void Game::updateOptionMenu()
 	}
 	
 	//option buttons
-	fullscreen.draw(windowRenderer, mousePos, gameFont); 
+	fullscreen.draw(windowRenderer, mousePos, gameFont);
+	musicOpt.draw(windowRenderer, mousePos, gameFont);
 	back.draw(windowRenderer, mousePos, gameFont);
 
 	//only draw if not fullscreen
@@ -474,10 +457,6 @@ void Game::updateUpgradeMenu(int innerMenu, int shipChoice)
 	scrapDisplay.draw(windowRenderer, 255, 255, 255, 255, gameFont);
 
 	shipyard.draw(windowRenderer, mousePos, gameFont);
-	offenseUpgrades.draw(windowRenderer, mousePos, gameFont);
-	defenseUpgrades.draw(windowRenderer, mousePos, gameFont);;
-	auxiliaryUpgrades.draw(windowRenderer, mousePos, gameFont);
-	specialUpgrades.draw(windowRenderer, mousePos, gameFont);
 
 	switch (innerMenu)
 	{
@@ -642,27 +621,6 @@ void Game::updateUpgradeMenu(int innerMenu, int shipChoice)
 		}
 			
 
-		//offense buttons
-		case 1:
-
-			break;
-
-		//defense buttons
-		case 2:
-
-			break;
-
-		//auxiliary buttons
-		case 3:
-
-			break;
-
-		//special buttons
-		case 4:
-
-			break;
-
-
 		default:
 			break;
 	}
@@ -811,37 +769,6 @@ void Game::upgradeLoop()
 							//std::cout << innerMenu << "\n";
 						}
 
-						//offense
-						if (offenseUpgrades.pointInRect(mousePos))
-						{
-							innerMenu = 1;
-
-							//std::cout << innerMenu << "\n";
-						}
-
-						//defense
-						if (defenseUpgrades.pointInRect(mousePos))
-						{
-							innerMenu = 2;
-
-							//std::cout << innerMenu << "\n";
-						}
-
-						//auxiliary
-						if (auxiliaryUpgrades.pointInRect(mousePos))
-						{
-							innerMenu = 3;
-
-							//std::cout << innerMenu << "\n";
-						}
-
-						//special
-						if (specialUpgrades.pointInRect(mousePos))
-						{
-							innerMenu = 4;
-
-							//std::cout << innerMenu << "\n";
-						}
 						if (back.pointInRect(mousePos))
 						{
 							inUpgradeMenu = false;
@@ -1163,6 +1090,21 @@ void Game::optionLoop()
 								//set to fullscreen
 								config.setFullscreen(true);
 								resetWindow(window);
+							}
+						}
+
+						//music option
+						if (musicOpt.pointInRect(mousePos))
+						{
+							if (config.getMusicPlay())
+							{
+								config.setMusicPlay(false);
+								musicOpt = Button(config.getWinWidth(), config.getWinHeight(), "MUSIC [OFF]", 2);
+							}
+							else
+							{
+								config.setMusicPlay(true);
+								musicOpt = Button(config.getWinWidth(), config.getWinHeight(), "MUSIC [ON]", 2);
 							}
 						}
 					

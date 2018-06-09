@@ -2,6 +2,7 @@
 #include <SDL\SDL.h>
 #include <SDL\SDL_ttf.h>
 #include <iostream>
+#include <SDL\SDL_mixer.h>
 static class Settings
 {
 public:
@@ -16,6 +17,11 @@ public:
 	void setFullscreen(bool setting);
 	bool getFullscreen();
 
+	//music option
+	void setMusicPlay(bool musOpt);
+	bool getMusicPlay();
+	void stopMusic();
+	void continueMusic();
 
 	//get window width and height
 	int getWinWidth();
@@ -95,6 +101,10 @@ public:
 private:
 	//bool if the game is set to fullscreen
 	bool fullscreen;
+
+	//bool if music should play
+	Mix_Music *backgroundMusic;
+	bool playMusic;
 	
 	//if the app should stil be run (global var)
 	bool runApplication;

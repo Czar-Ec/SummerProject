@@ -3,7 +3,6 @@
 #include <SDL\SDL.h>
 #include <SDL\SDL_image.h>
 #include <SDL\SDL_ttf.h>
-#include <SDL\SDL_mixer.h>
 
 //include
 #include <iostream>
@@ -220,7 +219,7 @@ private:
 		quitMain;
 
 	//option menu
-	Button fullscreen;
+	Button fullscreen, musicOpt;
 
 	Button size1152x648,
 		size1280x720,
@@ -229,19 +228,11 @@ private:
 		size_max,
 		back;
 
-	//play music
-	bool playMusic;
-
-
 	//play sound effects
 
 	//upgrade menu
 	//outer upgrade menu
-	Button shipyard,
-		defenseUpgrades,
-		offenseUpgrades,
-		auxiliaryUpgrades,
-		specialUpgrades;
+	Button shipyard;
 
 	Text scrapDisplay;
 
@@ -266,17 +257,6 @@ private:
 	//draw ship
 	SDL_Rect shipImage;
 	SDL_Rect shipDisplayFrame;
-
-	//offense upgrades
-
-
-	//defense upgrades
-	
-
-	//auxiliary upgrades
-
-
-	//special upgrades
 
 
 	//player ship
