@@ -84,6 +84,7 @@ private:
 	//////////////////////////////////////////////
 	//settings
 	Settings config;
+	Mix_Music *backgroundMusic;
 
 	//mouse position
 	SDL_Point mousePos;

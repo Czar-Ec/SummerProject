@@ -85,6 +85,29 @@ void Game::init()
 				std::cout << TTF_GetError();
 			}
 
+
+			//game music
+			if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096) < 0)
+			{
+				std::cout << Mix_GetError() << std::endl;
+			}
+
+			//background music
+			backgroundMusic = Mix_LoadMUS("res\\music\\proxy.mp3");
+
+			if (!Mix_PlayingMusic() && config.getMusicPlay())
+			{
+				Mix_PlayMusic(backgroundMusic, -1);
+			}
+			else if (Mix_PausedMusic())
+			{
+				Mix_ResumeMusic();
+			}
+			else
+			{
+				Mix_PauseMusic();
+			}
+
 			//sfx
 			//Mix_Chunk *shootBullet = Mix_LoadMUS();
 
@@ -1106,6 +1129,7 @@ void Game::optionLoop()
 								config.setMusicPlay(true);
 								musicOpt = Button(config.getWinWidth(), config.getWinHeight(), "MUSIC [ON]", 2);
 							}
+							resetWindow(window);
 						}
 					
 						//changing window sizes

@@ -20,8 +20,6 @@ public:
 	//music option
 	void setMusicPlay(bool musOpt);
 	bool getMusicPlay();
-	void stopMusic();
-	void continueMusic();
 
 	//get window width and height
 	int getWinWidth();
@@ -103,7 +101,6 @@ private:
 	bool fullscreen;
 
 	//bool if music should play
-	Mix_Music *backgroundMusic;
 	bool playMusic;
 	
 	//if the app should stil be run (global var)

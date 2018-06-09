@@ -1,3 +1,3 @@
 ﻿  Settings.cpp
-c:\users\user\documents\visual studio 2015\projects\summerproject\summerproject\summerproject\settings.h(155): warning C4091: 'static ': ignored on left of 'Settings' when no variable is declared
+c:\users\user\documents\visual studio 2015\projects\summerproject\summerproject\summerproject\settings.h(152): warning C4091: 'static ': ignored on left of 'Settings' when no variable is declared
   SummerProject.vcxproj -> C:\Users\User\Documents\Visual Studio 2015\Projects\SummerProject\SummerProject\Debug\SummerProject.exe

@@ -14,28 +14,6 @@ Settings::Settings()
 
 	//paused set to false initially
 	paused = false;
-
-	//game music
-	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096) < 0)
-	{
-		std::cout << Mix_GetError() << std::endl;
-	}
-
-	//background music
-	backgroundMusic = Mix_LoadMUS("res\\music\\proxy.mp3");
-
-	if (!Mix_PlayingMusic() && playMusic)
-	{
-		Mix_PlayMusic(backgroundMusic, -1);
-	}
-	else if (Mix_PausedMusic())
-	{
-		Mix_ResumeMusic();
-	}
-	else
-	{
-		Mix_PauseMusic();
-	}
 }
 
 Settings::~Settings()
@@ -83,30 +61,11 @@ bool Settings::getFullscreen()
 void Settings::setMusicPlay(bool musOpt)
 {
 	playMusic = musOpt;
-
-	if (playMusic)
-	{
-		stopMusic();
-	}
-	else
-	{
-		continueMusic();
-	}
 }
 
 bool Settings::getMusicPlay()
 {
 	return playMusic;
-}
-
-void Settings::stopMusic()
-{
-	Mix_PauseMusic();
-}
-
-void Settings::continueMusic()
-{
-	Mix_ResumeMusic();
 }
 
 int Settings::getWinWidth()
