@@ -1,4 +1,7 @@
 #include "Settings.h"
+#include <fstream>
+#include <iostream>
+#include <string>
 
 Settings::Settings()
 {
@@ -213,36 +216,6 @@ int Settings::getHighScore()
 	return highscore;
 }
 
-void Settings::setTopHr(int hour)
-{
-	topHour = hour;
-}
-
-void Settings::setTopMin(int min)
-{
-	topMin = min;
-}
-
-void Settings::setTopSec(float sec)
-{
-	topSec = sec;
-}
-
-int Settings::getTopHr()
-{
-	return topHour;
-}
-
-int Settings::getTopMin()
-{
-	return topMin;
-}
-
-float Settings::getTopSec()
-{
-	return topSec;
-}
-
 void Settings::setScrap(int inScrap)
 {
 	scrap = inScrap;
@@ -251,6 +224,41 @@ void Settings::setScrap(int inScrap)
 int Settings::getScrap()
 {
 	return scrap;
+}
+
+// save the game
+void Settings::saveGame()
+{
+	std::ofstream saveFile;
+	saveFile.open("res\\data\\save.sav");
+	saveFile << highscore << std::endl <<
+		scrap;
+	saveFile.close();
+}
+
+void Settings::loadGame()
+{
+	std::string line;
+
+	std::ifstream loadFile;
+	loadFile.open("res\\data\\save.sav");
+	if (loadFile.is_open())
+	{
+		int lineNum = 0;
+
+		while (std::getline(loadFile, line))
+		{
+			if (lineNum == 0)
+			{
+				setHighScore(std::stoi(line));
+			}
+			else
+			{
+				setScrap(std::stoi(line));
+			}
+			lineNum++;
+		}
+	}
 }
 
 int Settings::getEnergy()

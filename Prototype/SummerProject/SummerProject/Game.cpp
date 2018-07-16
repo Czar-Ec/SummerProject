@@ -125,8 +125,6 @@ void Game::init()
 			enemyShield = 10;
 			enemySpeed = 50;
 
-			config.setScrap(500000);
-
 			#pragma region HUDItems;
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -258,6 +256,9 @@ void Game::init()
 		//game background
 		menuRect = { 0, 0, config.getWinWidth(), config.getWinHeight() };
 		createStars(menuRect);
+
+		//load game vars
+		config.loadGame();
 	}
 
 	

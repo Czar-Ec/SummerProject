@@ -77,20 +77,13 @@ public:
 	void setHighScore(int newHighScore);
 	int getHighScore();
 
-	//highscore
-	void setTopHr(int hour);
-	void setTopMin(int min);
-	void setTopSec(float sec);
-
-	int getTopHr();
-	int getTopMin();
-	float getTopSec();
-
 	//game currency
 	void setScrap(int inScrap);
 	int getScrap();
 
-
+	//saving and loading
+	void saveGame();
+	void loadGame();
 
 	//public variables
 	bool shipGlassCannonUnlocked, shipTankUnlocked, shipSpeedyUnlocked,

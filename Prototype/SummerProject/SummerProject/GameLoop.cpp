@@ -1253,7 +1253,7 @@ void Game::playerAttack()
 
 void Game::gameOverScreen()
 {
-	bool gameOverScreenShown = true;
+	bool gameOverScreenShown = true, newHighScore = false;
 
 	//calculate the score
 	//score is calculated by multiplying the kills to how long the player survived
@@ -1273,9 +1273,18 @@ void Game::gameOverScreen()
 		);
 	}
 
+	//compare highscore
+	if (score > config.getHighScore())
+	{
+		config.setHighScore(score);
+		newHighScore = true;
+	}
+
 	//increase scrap for the player by dividing score by 1000
-	int newScrap = config.getScrap() + (score / 1000);
-	config.setScrap(newScrap);
+	config.setScrap(config.getScrap() + (score / 1000));
+
+	//autosave after each full game
+	config.saveGame();
 
 	//std::cout << score;
 
@@ -1293,7 +1302,18 @@ void Game::gameOverScreen()
 
 	Text killsText = Text(statTextHeight, config.getWinWidth(), ripTextX + (ripTextHeight), "KILLS");
 	Text killsNum = Text(statTextHeight, config.getWinWidth(), ripTextX + (ripTextHeight + (statTextHeight + statTextPadding)), std::to_string(kills).c_str());
-	Text scoreText = Text(statTextHeight, config.getWinWidth(), ripTextX + (ripTextHeight + (statTextHeight + statTextPadding) * 2), "SCORE");
+	
+	Text scoreText;
+	
+	if (newHighScore)
+	{
+		scoreText = Text(statTextHeight, config.getWinWidth(), ripTextX + (ripTextHeight + (statTextHeight + statTextPadding) * 2), "NEW HIGHSCORE");
+	}
+	else
+	{
+		scoreText = Text(statTextHeight, config.getWinWidth(), ripTextX + (ripTextHeight + (statTextHeight + statTextPadding) * 2), "SCORE");
+	}
+	
 	Text scoreNum = Text(statTextHeight, config.getWinWidth(), ripTextX + (ripTextHeight + (statTextHeight + statTextPadding) * 3), std::to_string(score).c_str());
 
 	Text survLabel = Text(statTextHeight, config.getWinWidth(), ripTextX + (ripTextHeight + (statTextHeight + statTextPadding) * 6), "SURVIVED FOR");
