@@ -1062,6 +1062,9 @@ void Game::upgradeLoop()
 
 	//set the player stats
 	setPlayerStats();
+
+	//autosave
+	config.saveGame();
 }
 
 void Game::optionLoop()
